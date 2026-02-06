@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Dex – Official Game Website</title>
+  <meta name="description" content="Project Dex is an exciting VR movement game. Climb, jump, and swing your way to victory!" />
+  <style>
+    :root {
+      --bg: #0a0e27;
+      --fg: #f2f2f2;
+      --accent: #00d4ff;
+      --accent2: #ff6b35;
+      --muted: #a0a0a0;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0a0e27 100%);
+      color: var(--fg);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes glow {
+      0%, 100% { text-shadow: 0 0 20px rgba(0, 212, 255, 0.5), 0 0 30px rgba(0, 212, 255, 0.3); }
+      50% { text-shadow: 0 0 30px rgba(0, 212, 255, 0.8), 0 0 40px rgba(0, 212, 255, 0.5); }
+    }
+
+    header {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1a1f3a 0%, #2d1b4e 50%, #1a1f3a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 50%, rgba(255, 107, 53, 0.1) 0%, transparent 50%);
+    }
+
+    .hero {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      padding: 2rem;
+      animation: fadeIn 1.5s ease forwards;
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      letter-spacing: 3px;
+      margin-bottom: 1rem;
+      animation: glow 2s ease-in-out infinite;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      color: var(--muted);
+      animation: fadeIn 2s ease forwards;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(10, 14, 39, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 1.5rem;
+      z-index: 10;
+      border-bottom: 2px solid rgba(0, 212, 255, 0.3);
+    }
+
+    nav a {
+      color: var(--fg);
+      margin-right: 1.5rem;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s, transform 0.3s;
+      display: inline-block;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    section {
+      padding: 5rem 1.5rem;
+      max-width: 1000px;
+      margin: auto;
+      animation: fadeIn 1.5s ease forwards;
+    }
+
+    section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    section h3 {
+      font-size: 1.6rem;
+      margin-top: 2rem;
+      margin-bottom: 0.8rem;
+      color: var(--accent);
+    }
+
+    .card {
+      background: rgba(26, 31, 58, 0.6);
+      border: 2px solid rgba(0, 212, 255, 0.2);
+      border-radius: 15px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+      backdrop-filter: blur(10px);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 40px rgba(0, 212, 255, 0.3);
+      border-color: rgba(0, 212, 255, 0.5);
+    }
+
+    footer {
+      background: rgba(10, 14, 39, 0.95);
+      text-align: center;
+      padding: 2rem 1rem;
+      color: var(--muted);
+      border-top: 2px solid rgba(0, 212, 255, 0.3);
+      animation: fadeIn 2s ease forwards;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    footer a:hover {
+      color: var(--accent2);
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 2.5rem; }
+      nav a { margin-right: 1rem; font-size: 0.9rem; }
+    }
+
+    .download-btn {
+      position: relative;
+      padding: 14px 28px;
+      border: 2px solid var(--accent);
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.2) 0%, rgba(255, 107, 53, 0.2) 100%);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: bold;
+      text-transform: uppercase;
+      overflow: hidden;
+      display: inline-block;
+      transition: all 0.3s;
+    }
+
+    .download-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+      border-color: var(--accent2);
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .feature-card {
+      background: rgba(26, 31, 58, 0.4);
+      border: 2px solid rgba(0, 212, 255, 0.3);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: scale(1.05);
+      border-color: var(--accent);
+      box-shadow: 0 5px 20px rgba(0, 212, 255, 0.3);
+    }
+
+    .feature-card h3 {
+      font-size: 1.3rem;
+      margin-top: 0.5rem;
+      color: var(--accent);
+    }
+
+    .emoji {
+      font-size: 3rem;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    h4 {
+      color: var(--accent2);
+      font-size: 1.2rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#about">About</a>
+  <a href="#features">Features</a>
+  <a href="#support">Support</a>
+  <a href="#privacy">Privacy</a>
+  <a href="#terms">Terms</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<header>
+  <div class="hero">
+    <h1>PROJECT DEX</h1>
+    <p>The ultimate VR movement game. Climb, jump, and swing through immersive worlds!</p>
+  </div>
+</header>
+
+<section id="about">
+  <h2>About the Game</h2>
+  <div class="card">
+    <p><strong>Project Dex</strong> is an exhilarating VR movement game inspired by the hit game Gorilla Tag. Use your hands to climb, push off surfaces, and navigate vibrant environments with physics-based movement that feels natural and incredibly fun.</p>
+    <p>Built from the ground up for VR, Project Dex delivers an active, social experience where movement is everything. No teleportation, no artificial locomotion—just pure, skill-based gameplay that will get your heart racing!</p>
+
+    <div style="margin-top:2rem; display:flex; gap:1rem; flex-wrap:wrap;">
+      <a class="download-btn" href="#" target="_blank" rel="noopener">Discord</a>
+      <a class="download-btn" href="#">Meta Quest Store</a>
+      <a class="download-btn" href="#" target="_blank" rel="noopener">SideQuest</a>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <h2>Game Features</h2>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="emoji">🦍</div>
+      <h3>Physics-Based Movement</h3>
+      <p>Master the art of hand-powered locomotion in VR</p>
+    </div>
+    <div class="feature-card">
+      <div class="emoji">🌍</div>
+      <h3>Vibrant Worlds</h3>
+      <p>Explore colorful, dynamic environments</p>
+    </div>
+    <div class="feature-card">
+      <div class="emoji">👥</div>
+      <h3>Multiplayer Fun</h3>
+      <p>Play with friends in social lobbies</p>
+    </div>
+    <div class="feature-card">
+      <div class="emoji">🏃</div>
+      <h3>Active Gameplay</h3>
+      <p>Get moving with a full-body workout</p>
+    </div>
+  </div>
+</section>
+
+<section id="support">
+  <h2>Game Support</h2>
+  <div class="card">
+    <p>If you experience bugs, performance issues, or have gameplay questions, please reach out to us through our Discord community.</p>
+    <ul>
+      <li>Discord: <strong>Coming Soon</strong></li>
+      <li>Include your VR headset model and a description of the issue</li>
+      <li>Check our FAQ in Discord for common solutions</li>
+    </ul>
+  </div>
+</section>
+
+<section id="privacy">
+  <h2>Privacy Policy</h2>
+  <div class="card">
+    <p><strong>Last Updated:</strong> February 6, 2026</p>
+    
+    <p>Project Dex respects your privacy and is committed to protecting the personal information you share with us. This Privacy Policy explains how we collect, use, and safeguard your information when you play Project Dex.</p>
+
+    <h3>Information We Collect</h3>
+
+    <h4>a. Voice Data</h4>
+    <p>Project Dex accesses your device's microphone to enable real-time voice communication during gameplay. Voice data is processed instantly and is not stored on our servers or recorded by the app. Please note, however, that other players may hear your voice during active sessions. Always use this feature responsibly and be mindful of the information you share verbally.</p>
+
+    <h4>b. Device Information</h4>
+    <p>We may collect certain information about the device you use to play the Game, including but not limited to your device's model, operating system, and unique device identifiers.</p>
+
+    <h4>c. Usage Data</h4>
+    <p>We collect data on how you interact with the Game, such as gameplay statistics, in-game actions, and the amount of time spent playing. This data helps us improve the Game and provide a better user experience.</p>
+
+    <h4>d. Log Data</h4>
+    <p>When you access the Game, our servers automatically record certain information, including your IP address, game session details, and the time and date of your interaction with the Game. This data is used for security purposes and to help us understand how the Game is used.</p>
+
+    <h4>e. Data Usage Check-Up</h4>
+    <p>We periodically check the data usage of players to ensure efficient operation and to help players monitor how much data is consumed while playing the game. This includes monitoring network data and server requests during gameplay. We do not collect personal information during this check-up, but data on overall usage patterns helps us optimize performance and server capacity.</p>
+
+    <h3>How We Use Your Information</h3>
+    <p>We use the information we collect for the following purposes:</p>
+    <ul>
+      <li><strong>To provide and maintain the Game:</strong> Your voice data and usage data help us ensure the Game functions as intended and allows for player communication.</li>
+      <li><strong>To improve the Game:</strong> We analyze device information, usage data, log data, and data usage check-up results to enhance gameplay features and fix issues.</li>
+      <li><strong>To protect our users:</strong> We may use log data, device information, and data usage metrics to monitor and prevent fraudulent activity or unauthorized access.</li>
+    </ul>
+
+    <h3>Sharing Your Information</h3>
+    <p>We do not sell, trade, or otherwise transfer your personal information to outside parties except in the following circumstances:</p>
+    <ul>
+      <li><strong>Service Providers:</strong> We may share information with third-party service providers who assist us in operating the Game, conducting our business, or providing services to you, provided that these parties agree to keep this information confidential.</li>
+      <li><strong>Legal Requirements:</strong> We may disclose your information if required to do so by law or in response to valid requests by public authorities (e.g., a court or a government agency).</li>
+    </ul>
+
+    <h3>Security of Your Information</h3>
+    <p>We take the security of your personal information seriously. We implement appropriate technical and organizational measures to protect your data from unauthorized access, alteration, or destruction. However, no method of transmission over the internet or electronic storage is completely secure, so we cannot guarantee its absolute security.</p>
+
+    <h3>Children's Privacy</h3>
+    <p>Project Dex is not intended for children under the age of 13. We do not knowingly collect or solicit personal information from anyone under 13. If we become aware that we have collected personal information from a child under 13, we will delete that information as quickly as possible. If you believe that we might have any information from or about a child under 13, please contact us.</p>
+
+    <h3>Your Rights and Choices</h3>
+    <p>All users have the right to request the deletion of their personal data. Depending on your jurisdiction, you may also have other rights regarding your personal information, including the right to access or correct the data we have about you. If you wish to exercise any of these rights, please contact us at the email provided below.</p>
+
+    <h3>Changes to This Privacy Policy</h3>
+    <p>We may update this Privacy Policy from time to time to reflect changes in our practices or for other operational, legal, or regulatory reasons. We will notify you of any changes by posting the new Privacy Policy on this page. You are advised to review this Privacy Policy periodically for any changes.</p>
+
+    <h3>Contact Us</h3>
+    <p>If you have any questions or concerns about this Privacy Policy or our data practices, please contact us at:</p>
+    <p><strong>Email:</strong> contact@projectdex.game</p>
+
+    <hr style="border: 1px solid #333; margin: 2rem 0;">
+
+    <p style="font-style: italic;">By playing Project Dex, you agree to the collection and use of your information as described in this Privacy Policy.</p>
+  </div>
+</section>
+
+<section id="terms">
+  <h2>Terms of Service</h2>
+  <div class="card">
+    <p><strong>Last Updated:</strong> February 6, 2026</p>
+    
+    <p>By playing Project Dex, you agree to the following terms and conditions:</p>
+    
+    <h3>License</h3>
+    <p>Project Dex grants you a limited, non-exclusive, non-transferable license to download, install, and play the game for personal, non-commercial use.</p>
+    
+    <h3>Restrictions</h3>
+    <p>You agree not to:</p>
+    <ul>
+      <li>Redistribute, sell, lease, or sublicense the game</li>
+      <li>Modify, reverse engineer, or decompile the game</li>
+      <li>Use cheats, hacks, or unauthorized third-party software</li>
+      <li>Harass, abuse, or harm other players</li>
+      <li>Violate any applicable laws or regulations</li>
+    </ul>
+    
+    <h3>User Conduct</h3>
+    <p>Players are expected to maintain a respectful and welcoming environment. Inappropriate behavior, including but not limited to harassment, hate speech, or cheating, may result in temporary or permanent bans.</p>
+    
+    <h3>Disclaimer</h3>
+    <p>The game is provided "as is" without warranties of any kind, either express or implied. The developer is not liable for any damages resulting from use of the software.</p>
+    
+    <h3>Updates and Changes</h3>
+    <p>We reserve the right to modify, update, or discontinue the game or any features at any time without notice.</p>
+    
+    <h3>Termination</h3>
+    <p>Violation of these terms may result in immediate termination of your access to the game, including in-game bans.</p>
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Developer Contact</h2>
+  <div class="card">
+    <p><strong>Developer:</strong> Project Dex Team</p>
+    <p><strong>Email:</strong> contact@projectdex.game</p>
+    <p><strong>Discord:</strong> Coming Soon</p>
+    <p><strong>Website:</strong> Hosted via GitHub Pages</p>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Project Dex. All rights reserved.</p>
+  <p><a href="#privacy">Privacy Policy</a> • <a href="#terms">Terms of Service</a></p>
+</footer>
+
+</body>
+</html>
